@@ -6,13 +6,11 @@
     <title>Custom Poll</title>
     <style>
         /* Add your existing styles here */
-        /* Include the new styles for animation */
         .poll-bar {
             position: absolute;
             left: 0;
             bottom: 0;
             width: 100%;
-            height: 100%;
             background-color: #7e7e7e;
             transition: height 0.5s ease-in-out;
             z-index: -1;
@@ -52,32 +50,32 @@
             <div class="poll-options">
                 <div class="poll-option" data-date="5 sep">
                     5 Sep
-                    <div class="poll-bar" data-date="5 sep"></div>
+                    <div class="poll-bar"></div>
                     <div class="result-info">0 vote(s) (0%)</div>
                 </div>
                 <div class="poll-option" data-date="6 sep">
                     6 Sep
-                    <div class="poll-bar" data-date="6 sep"></div>
+                    <div class="poll-bar"></div>
                     <div class="result-info">0 vote(s) (0%)</div>
                 </div>
                 <div class="poll-option" data-date="7 sep">
                     7 Sep
-                    <div class="poll-bar" data-date="7 sep"></div>
+                    <div class="poll-bar"></div>
                     <div class="result-info">0 vote(s) (0%)</div>
                 </div>
                 <div class="poll-option" data-date="8 sep">
                     8 Sep
-                    <div class="poll-bar" data-date="8 sep"></div>
+                    <div class="poll-bar"></div>
                     <div class="result-info">0 vote(s) (0%)</div>
                 </div>
                 <div class="poll-option" data-date="9 sep">
                     9 Sep
-                    <div class="poll-bar" data-date="9 sep"></div>
+                    <div class="poll-bar"></div>
                     <div class="result-info">0 vote(s) (0%)</div>
                 </div>
                 <div class="poll-option" data-date="10 sep">
                     10 Sep
-                    <div class="poll-bar" data-date="10 sep"></div>
+                    <div class="poll-bar"></div>
                     <div class="result-info">0 vote(s) (0%)</div>
                 </div>
             </div>
@@ -88,7 +86,7 @@
     <script type="module">
         // Import the functions you need from the SDKs you need
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
-        import { getDatabase, ref, set, onValue, update } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
+        import { getDatabase, ref, update, onValue } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
 
         // Your web app's Firebase configuration
         const firebaseConfig = {
@@ -169,7 +167,6 @@
     </script>
 </body>
 </html>
-
 
 <!DOCTYPE html>
 <html lang="en">
