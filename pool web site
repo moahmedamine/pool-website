@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Poll</title>
+    <style>
+        /* General body styling */
+        body {
+            background-color: #3b3b3b; /* Dark gray background */
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Container with edge/border */
+        .window-container {
+            background-color: #e0e0e0; /* Light gray background for the window */
+            border: 1px solid #c0c0c0; /* Border around the window */
+            border-radius: 8px; /* Rounded corners for the window */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+            overflow: hidden; /* Ensure content stays inside rounded corners */
+            width: 600px; /* Increased width of the square */
+            height: 600px; /* Increased height of the square */
+            padding: 20px;
+        }
+
+        /* Title bar styling */
+        .title-bar {
+            background-color: #e0e0e0; /* Light gray background for title bar */
+            height: 30px;
+            display: flex;
+            align-items: center;
+            padding-left: 10px;
+            padding-right: 10px;
+            justify-content: space-between;
+            border-bottom: 1px solid #c0c0c0; /* Border below title bar */
+            position: relative;
+        }
+
+        /* Close, Minimize, and Maximize buttons */
+        .window-buttons {
+            display: flex;
+            gap: 8px; /* Space between the buttons */
+        }
+
+        .window-button {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #ff5f57; /* Close button (red) */
+            cursor: pointer;
+        }
+
+        .window-button.minimize {
+            background-color: #ffbd2e; /* Minimize button (yellow) */
+        }
+
+        .window-button.maximize {
+            background-color: #28c840; /* Maximize button (green) */
+        }
+
+        /* Centered file name */
+        .file-name {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 14px;
+            color: #666666; /* Slightly darker text color */
+        }
+
+        /* Poll section */
+        .poll-options {
+            margin-top: 20px;
+        }
+
+        .poll-option {
+            position: relative;
+            margin: 10px 0;
+            cursor: pointer;
+            padding: 10px;
+            border: 1px solid #c0c0c0;
+            border-radius: 5px;
+            background-color: #ffffff;
+            height: 50px; /* Increase height for better visibility */
+            overflow: hidden;
+        }
+
+        .poll-option.selected {
+            background-color: #d0d0d0; /* Light gray background for selected option */
+        }
+
+        .poll-option:hover {
+            background-color: #f0f0f0;
+        }
+
+        .fill-container {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .bar {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 0%;
+            background-color: #7e7e7e; /* Gray color for filling animation */
+            transition: width 0.6s ease-in-out; /* Smooth animation */
+            z-index: 0;
+        }
+
+        .result-info {
+            position: relative;
+            z-index: 1; /* Ensure text is above the filling bar */
+            font-size: 14px;
+            color: #333333;
+        }
+
+        .poll-option-text {
+            position: relative;
+            z-index: 2; /* Ensure text is above the filling bar */
+        }
+    </style>
+</head>
+<body>
+    <!-- Window container with border and shadow -->
+    <div class="window-container">
+        <!-- Title bar design -->
+        <div class="title-bar">
+            <div class="window-buttons">
+                <div class="window-button"></div>
+                <div class="window-button minimize"></div>
+                <div class="window-button maximize"></div>
+            </div>
+            <div class="file-name">LUDO REAL LIFE</div>
+        </div>
+
+        <!-- Content inside the window -->
+        <div class="window-content">
+            <h1>Vote for a Date</h1>
+            <div class="poll-options">
+                <div class="poll-option" data-date="5 sep">
+                    <div class="fill-container">
+                        <div class="bar" id="bar-5-sep"></div>
+                    </div>
+                    <div class="poll-option-text">5 Sep</div>
+                    <div class="result-info" id="result-info-5-sep">0 vote(s) (0%)</div>
+                </div>
+                <div class="poll-option" data-date="6 sep">
+                    <div class="fill-container">
+                        <div class="bar" id="bar-6-sep"></div>
+                    </div>
+                    <div class="poll-option-text">6 Sep</div>
+                    <div class="result-info" id="result-info-6-sep">0 vote(s) (0%)</div>
+                </div>
+                <div class="poll-option" data-date="7 sep">
+                    <div class="fill-container">
+                        <div class="bar" id="bar-7-sep"></div>
+                    </div>
+                    <div class="poll-option-text">7 Sep</div>
+                    <div class="result-info" id="result-info-7-sep">0 vote(s) (0%)</div>
+                </div>
+                <div class="poll-option" data-date="8 sep">
+                    <div class="fill-container">
+                        <div class="bar" id="bar-8-sep"></div>
+                    </div>
+                    <div class="poll-option-text">8 Sep</div>
+                    <div class="result-info" id="result-info-8-sep">0 vote(s) (0%)</div>
+                </div>
+                <div class="poll-option" data-date="9 sep">
+                    <div class="fill-container">
+                        <div class="bar" id="bar-9-sep"></div>
+                    </div>
+                    <div class="poll-option-text">9 Sep</div>
+                    <div class="result-info" id="result-info-9-sep">0 vote(s) (0%)</div>
+                </div>
+                <div class="poll-option" data-date="10 sep">
+                    <div class="fill-container">
+                        <div class="bar" id="bar-10-sep"></div>
+                    </div>
+                    <div class="poll-option-text">10 Sep</div>
+                    <div class="result-info" id="result-info-10-sep">0 vote(s) (0%)</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize votes from localStorage or set to default values
+        const votes = JSON.parse(localStorage.getItem('votes')) || {
+            '5 sep': 0,
+            '6 sep': 0,
+            '7 sep': 0,
+            '8 sep': 0,
+            '9 sep': 0,
+            '10 sep': 0
+        };
+
+        // Function to update results in each option
+        function updateResults() {
+            const totalVotes = Object.values(votes).reduce((a, b) => a + b, 0);
+
+            document.querySelectorAll('.poll-option').forEach(option => {
+                const date = option.getAttribute('data-date');
+                const count = votes[date];
+                const percentage = totalVotes > 0 ? (count / totalVotes * 100).toFixed(2) : 0;
+                const bar = option.querySelector('.bar');
+                const resultInfo = option.querySelector('.result-info');
+
+                resultInfo.textContent = `${count} vote(s) (${percentage}%)`;
+
+                // Set the width and color of the bar based on the percentage
+                bar.style.width = percentage + '%';
+                
+                // Choose color based on percentage
+                if (percentage > 80) {
+                    bar.style.backgroundColor = '#ff6b6b'; // Red
+                } else if (percentage > 60) {
+                    bar.style.backgroundColor = '#ff9f43'; // Orange
+                } else {
+                    bar.style.backgroundColor = '#7e7e7e'; // Gray
+                }
+            });
+        }
+
+        // Handle click on poll options
+        document.querySelectorAll('.poll-option').forEach(option => {
+            option.addEventListener('click', () => {
+                if (localStorage.getItem('hasVoted') === 'true') {
+                    alert('You have already voted.');
+                    return;
+                }
+
+                // Remove 'selected' class from all options
+                document.querySelectorAll('.poll-option').forEach(opt => opt.classList.remove('selected'));
+
+                // Mark the clicked option as selected
+                option.classList.add('selected');
+                
+                // Update votes
+                const date = option.getAttribute('data-date');
+                votes[date]++;
+                
+                // Store the votes in localStorage
+                localStorage.setItem('votes', JSON.stringify(votes));
+                localStorage.setItem('hasVoted', 'true');
+                
+                // Update results
+                updateResults();
+            });
+        });
+
+        // Initialize results
+        updateResults();
+    </script>
+</body>
+</html>
